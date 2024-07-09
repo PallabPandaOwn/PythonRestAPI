@@ -24,3 +24,11 @@ print(f"Year: {my_car.year}")  # Output: Year: 2023
 # Call object methods
 my_car.accelerate()  # Output: The Ford Mustang is accelerating!
 another_car.brake()  # Output: The Toyota Camry is braking!
+
+
+print(__name__)
+
+import mymodule
+
+print(mymodule.add(1,2))
+print(__name__)

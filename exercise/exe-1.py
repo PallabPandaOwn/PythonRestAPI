@@ -40,9 +40,34 @@ class Student():
 
 
 std1 = Student('Pallab',(10,30,40))
-print(f'Name of student - {std.name} and Grades - {std.grades}')
-print(std.avg_grades())
+print(f'Name of student - {std1.name} and Grades - {std1.grades}')
+print(std1.avg_grades())
 
+
+# class school(Student):
+#     super()
 
 # --------------------#
+
+def fun(seq: int)-> int:
+    return seq
+
+print(fun(5))
+
+# --------#
+import sys 
+import mymodule
+
+mymodule.add(1,2,3)
+
+print(__name__)
+
+def divide(divident:int,divisor:int)-> float:
+    result=divident/divisor
+    print(result)
+
+try:
+    divide(6,0)
+except ZeroDivisionError as e:
+    print('divisor canot be zero')
 
