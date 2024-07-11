@@ -105,6 +105,7 @@ envVars.txt
 *.noseids
 .nyc_output
 .vscode-test
+.vscode
 __pycache__
 npm-debug.log
 **/.mypy_cache/**
