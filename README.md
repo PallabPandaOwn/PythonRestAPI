@@ -39,3 +39,10 @@ No Special Arguments: Static methods don't take self or cls arguments by default
 Use instance methods for actions that operate on specific object data (attributes).
 Use class methods for operations related to the class itself, often used as alternative constructors or factory methods.
 Use static methods for utility functions that don't require access to class data or don't modify class state directly.
+
+
+
+### Docker
+
+- Dockerfile -: restapi/Dockerfile
+- Docker Compose file -: restapi/docker-compose.yml
