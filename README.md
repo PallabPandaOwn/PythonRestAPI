@@ -46,3 +46,8 @@ Use static methods for utility functions that don't require access to class data
 
 - Dockerfile -: restapi/Dockerfile
 - Docker Compose file -: restapi/docker-compose.yml
+
+### Commands
+1. flask ru
+2.  docker build -t python-rest-apis .
+3.  docker compose up
