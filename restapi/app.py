@@ -31,12 +31,12 @@ stores = [
 ]
 
 
-@app.get('/store')  # endpoint
+@app.get('/store')  # endpoint to get store
 def get_store():
     return {"stores": stores}
 
 
-@app.post("/store")
+@app.post("/store") # endpoint to create store
 def create_store():
     request_data = request.get_json()
     new_store = {"storename": request_data["storename"], "items": []}
@@ -44,7 +44,7 @@ def create_store():
     return new_store, 201 # 201 -: Accepted request
 
 
-@app.post("/store/<string:storename>/item")
+@app.post("/store/<string:storename>/item") # endpoint to create item in store
 def create_item(storename):
     request_date = request.get_json()
     for store in stores:
@@ -54,7 +54,7 @@ def create_item(storename):
             return new_item , 201
     return "Store not found", 404
 
-@app.get("/store/<string:storename>")
+@app.get("/store/<string:storename>") # endpoint to search a store
 def search_store(storename):
     for store in stores:
         if store["storename"] == storename:
@@ -62,7 +62,7 @@ def search_store(storename):
         
     return {"message":"store not found."}, 404
 
-@app.get("/store/<string:storename>/item")
+@app.get("/store/<string:storename>/item") # endpoint to get all item in a store
 def search_item_in_store(storename):
     for store in stores:
         if store["storename"] == storename:
