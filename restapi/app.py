@@ -7,12 +7,14 @@ app = Flask(__name__)
 
 
 # Endpoint to all get stores
+
 @app.get('/store')  
 def get_all_store():
     return {"stores": list(stores.values())}
 
 
-# Endpoint to create store with id
+# Endpoint to insert new store
+
 @app.post("/store") 
 def insert_store():
     store_data = request.get_json()
@@ -24,7 +26,64 @@ def insert_store():
     stores[store_id]=store
     return store, 201 # 201 -: Accepted request
 
-# Endpoint to create item in store
+
+# Endpoint to a store by id
+
+@app.get("/store/<string:store_id>") 
+def get_store_by_id(store_id):
+    try:
+        return stores[store_id],200
+    except KeyError:
+        abort(404,message="store not found.")
+
+# Endpoint delete a store by id
+
+@app.delete("/store/<string:store_id>") 
+def delete_store_by_id(store_id):
+    try:
+        del stores[store_id]
+        return stores,200
+    except KeyError:
+        abort(404,message="store not found.")
+
+# Endpoints tp update a store
+
+@app.put("/store/<string:store_id>") 
+def update_store_by_id(store_id):
+    store_data = request.json()
+    if "name" not in store_data:
+        abort(400,message="Bad request. Ensure 'name' are included in the JSON payload.")
+    try:
+        store =  stores[store_id]
+        store |= store_data
+        return store,200
+    except KeyError:
+        abort(404,message="store not found.")
+
+### ITEM ENDPOINTS ###
+
+
+# Endpoint to get all items
+
+@app.get("/item")
+def get_all_item():
+    return {"items": list(items.values())},200
+
+
+# Endpoint to get item by id
+
+@app.get("/item/<string:item_id>") 
+def get_item_by_id(item_id):
+    try:
+        if items[item_id] in items:
+            return items[item_id]
+    except KeyError:
+        return {"message":"item not found."}, 404    
+    
+    
+
+# Endpoint to insert item in store
+
 @app.post("/item") 
 def insert_item():
     item_data = request.get_json()
@@ -46,31 +105,9 @@ def insert_item():
     items[item_id]=item
     return {"item": item},201
 
-# Endpoint to get all items
-@app.get("/item")
-def get_all_item():
-    return {"items": list(items.values())},200
-
-# Endpoint to search a store by id
-@app.get("/store/<string:store_id>") 
-def get_store_by_id(store_id):
-    try:
-        return stores[store_id],200
-    except KeyError:
-        # return {"message":"store not found."}, 404
-        abort(404,message="store not found.")
-
-# Endpoint to get item by id
-@app.get("/item/<string:item_id>") 
-def get_item_by_id(item_id):
-    try:
-        if items[item_id] in items:
-            return items[item_id]
-    except KeyError:
-        return {"message":"item not found."}, 404    
-    
 
 # Endpoint to delete item by id
+
 @app.delete("/item/<string:item_id>") 
 def delete_item_by_id(item_id):
     try:
@@ -81,6 +118,7 @@ def delete_item_by_id(item_id):
         return {"message":"item not found."}, 404 
     
 # Endpoint for update item by item id 
+
 @app.put("/item/<string:item_id>")
 def update_item_by_id(item_id):
     item_data = request.json()
