@@ -6,6 +6,8 @@ from flask_smorest import abort
 app = Flask(__name__)
 
 
+### STORE API
+
 # Endpoint to all get stores
 
 @app.get('/store')  
@@ -19,7 +21,7 @@ def get_all_store():
 def insert_store():
     store_data = request.get_json()
     if "storename" not in store_data :
-        abort(404,message="please give all details.")
+        abort(404,message="please provide storename.")
 
     store_id = uuid.uuid4().hex # generate unique id 
     store = {**store_data,"id":store_id}
@@ -46,22 +48,22 @@ def delete_store_by_id(store_id):
     except KeyError:
         abort(404,message="store not found.")
 
-# Endpoints tp update a store
+# Endpoints to update a store
 
 @app.put("/store/<string:store_id>") 
 def update_store_by_id(store_id):
-    store_data = request.json()
-    if "name" not in store_data:
-        abort(400,message="Bad request. Ensure 'name' are included in the JSON payload.")
+    store_data = request.get_json()
+    if "storename" not in store_data:
+        abort(400,message="Bad request. Ensure 'storename' are included in the JSON payload.")
     try:
         store =  stores[store_id]
         store |= store_data
-        return store,200
+        return store , 200
     except KeyError:
         abort(404,message="store not found.")
 
-### ITEM ENDPOINTS ###
 
+### ITEMS API ###
 
 # Endpoint to get all items
 
@@ -121,14 +123,14 @@ def delete_item_by_id(item_id):
 
 @app.put("/item/<string:item_id>")
 def update_item_by_id(item_id):
-    item_data = request.json()
+    item_data = request.get_json()
     if "name" not in item_data or "price" not in item_data:
         abort(400,message="Bad request. Ensure 'price' and 'name' are included in the JSON payload.")
 
     try:
         item = items[item_id]
         item |= item_data
-        return item
+        return item , 200
     except KeyError:
         abort(400,message="Item not found")
     

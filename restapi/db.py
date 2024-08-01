@@ -1,5 +1,3 @@
-stores={}
-items={}
 
 # stores = [
 #     {
@@ -27,3 +25,8 @@ items={}
 #         ]
 #     }
 # ]
+
+
+stores={}
+items={}
+
